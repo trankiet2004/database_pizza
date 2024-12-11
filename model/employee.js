@@ -19,44 +19,22 @@ class Employee{
     async addEmployee(name, phone, birth_date, chef_flag, username, password) {
         try {
             var isChef = (chef_flag === "FALSE") ? false : true;
-            const query = "INSERT INTO employees (name, phone, birth_date, chef_flag, username, password) VALUES (?, ?, ?, ?, SHA2(?, 256), ?)";
+            const query = "INSERT INTO employees (name, phone, birth_date, chef_flag, username, password) VALUES (?, ?, ?, ?,?,  SHA2(?, 256))";
             const [result] = await pool.query(query, [name, phone, birth_date, isChef, username, password]);
             return result;
         } catch (error) {
             console.error(error);
         }
     }
-    
+    async checkEmployee(username,password){
+        try{
+            const query = "SELECT * FROM employees WHERE username =? AND password = SHA2(?, 256)";
+            const [result] = await pool.query(query, [username, password]);
+            return result;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 }
 module.exports = Employee;
-// import pool from '../config/db.js';
-
-// let instance = null;
-
-// class DbService {
-//     static getInstance() {
-//         if (!instance) instance = new DbService();
-//         return instance;
-//     }
-
-//     async getAllNhanvien() {
-//         try {
-//             const [results] = await pool.query("SELECT * FROM employees;");
-//             return results;
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     }
-
-//     async addEmployee(name, phone, birth_date, chef_flag, username, password) {
-//         try {
-//             const query = "INSERT INTO employees (name, phone, birth_date, chef_flag, username, password) VALUES (?, ?, ?, ?, SHA2(?, 256), ?)";
-//             const [result] = await pool.query(query, [name, phone, birth_date, chef_flag, username, password]);
-//             return result;
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     }
-// }
-
-// export default DbService;
