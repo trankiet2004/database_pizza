@@ -1,40 +1,26 @@
-// const mysql = require('mysql2');
-const pool= require('../config/db');
-let instance =null;
+const {sql, config} = require('../config/db');
+let instance = null;
 class Employee{
     static getInstance(){
         if(!instance) instance = new Employee();
         return instance;
     }
-    async getAllNhanvien(){
+    async addEmployee(name,phone,birth_date,chef_flag,username,password){
         try{
-            const query = "INSERT INTO employees (name, phone, birth_date, chef_flag, username, password) VALUES (?, ?, ?, ?, SHA2(?, 256), ?)";
-            const [result] = await pool.query(query, [name, phone, birth_date, chef_flag, username, password]);
-            return result;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-    async addEmployee(name, phone, birth_date, chef_flag, username, password) {
-        try {
-            var isChef = (chef_flag === "FALSE") ? false : true;
-            const query = "INSERT INTO employees (name, phone, birth_date, chef_flag, username, password) VALUES (?, ?, ?, ?,?,  SHA2(?, 256))";
-            const [result] = await pool.query(query, [name, phone, birth_date, isChef, username, password]);
-            return result;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    async checkEmployee(username,password){
-        try{
-            const query = "SELECT * FROM employees WHERE username =? AND password = SHA2(?, 256)";
-            const [result] = await pool.query(query, [username, password]);
-            return result;
-        }
-        catch (error) {
-            console.log(error);
+            let pool = await sql.connect(config);
+            const result = await pool.request()
+            .input('name',sql.VarChar,(name))
+            .input('phone',sql.VarChar,(phone))
+            .input('birth_date',sql.Date,(birth_date))
+            .input('chef_flag',sql.Bit,(chef_flag === "FALSE" ? 1 : 0))
+            .input('username',sql.VarChar,(username))
+            .input('password',sql.VarChar,(password))
+            .execute('spCreateUser');
+            
+            result.send('User registered successfully');
+        } catch (err) {
+            console.error(err);
         }
     }
 }
-module.exports = Employee;
+module.exports = Employee; 

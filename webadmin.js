@@ -5,17 +5,20 @@ const sql = require('mssql');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const procedures = require('./procedure');
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/Front_End`));
 
-const config = require('./database'); // Kết nối từ tệp db.js
+const config = require('./config/db'); // Kết nối từ tệp db.js
+const authRoutes = require('./routes/auth');
 
+
+app.use('/', authRoutes);
 app.get('/pizza', async (req, res) => {
     try {
-        const Kich_co = 'Large'
+        const Kich_co = ''
         const pool = await sql.connect(config);
         const result = await pool.request()
         .input('KichCo', sql.NVarChar, Kich_co) // Truyền tham số an toàn
@@ -30,5 +33,5 @@ app.get('/pizza', async (req, res) => {
 });
 
 app.listen(8000, () => {
-    console.log("The Server for pizza store is running")
+    console.log("The Server for pizza store is running in http://localhost:8000")
 })

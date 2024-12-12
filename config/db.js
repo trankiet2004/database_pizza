@@ -1,14 +1,19 @@
-const mysql = require('mysql2');
-const dotenv = require('dotenv');
-let instance =null;
-dotenv.config()
-const pool = mysql.createPool({
-    host: "127.0.0.1",
-    user: "root",
-    password: "Thanhphat2408",
-    database: "restaurant",
-}).promise()
-module.exports = pool;
+const sql = require('mssql');
+
+// Cấu hình kết nối SQL Server
+const config = {
+  user: 'sa',                      // Tên người dùng SQL Server
+  password: 'TrunTrun_TramCam3004',       // Mật khẩu người dùng
+  server: 'truntrun.ddns.net',   // IP hoặc hostname của SQL Server
+  database: 'TUANEMTRAMTINH',  // Tên cơ sở dữ liệu
+  options: {
+    encrypt: false,                // Đặt false nếu không dùng SSL
+    trustServerCertificate: true,  // Bypass SSL nếu không dùng chứng chỉ
+  },
+};
+
+module.exports = {sql,config}
+
 // import mysql from 'mysql2/promise';
 // import dotenv from 'dotenv';
 
