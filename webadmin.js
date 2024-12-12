@@ -22,7 +22,7 @@ app.get('/pizza', async (req, res) => {
         const pool = await sql.connect(config);
         const result = await pool.request()
         //.input('KichCo', sql.NVarChar, Kich_co) // Truyền tham số an toàn
-        .query('EXEC ViewLuaChonThucDonDetails'); // Gọi stored procedure
+        .execute('ViewLuaChonThucDonDetails'); // Gọi stored procedure
 
         res.json(result.recordset);
   
@@ -31,6 +31,21 @@ app.get('/pizza', async (req, res) => {
       res.status(500).send('Đã xảy ra lỗi');
     }
 });
+
+app.get('/pizza/:id', async (req, res) => {
+    try{
+        const { id } = req.params;
+        const pool = await sql.connect(config);
+        const result = await pool.request()
+        .input('ID_mon', sql.NVarChar, id) // Truyền tham số an toàn
+        .execute('FindMonAnDetails'); // Gọi stored procedure
+        res.status(200).json(result.recordset);
+    }
+    catch(err){
+      console.error('L��i:', err.message);
+      res.status(500).send('Đã xảy ra l��i');
+    }
+})
 
 app.post('/pizza', async(req, res) => {
     try {
