@@ -12,12 +12,12 @@ class Employee{
             .input('name',sql.VarChar,(name))
             .input('phone',sql.VarChar,(phone))
             .input('birth_date',sql.Date,(birth_date))
-            .input('chef_flag',sql.Bit,(chef_flag === "FALSE" ? 1 : 0))
+            .input('chef_flag',sql.Bit,(chef_flag))
             .input('username',sql.VarChar,(username))
             .input('password',sql.VarChar,(password))
             .execute('spCreateUser');
             
-            result.send('User registered successfully');
+            return result;
         } catch (err) {
             console.error(err);
         }
