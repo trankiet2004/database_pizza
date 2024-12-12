@@ -34,6 +34,42 @@ app.get('/pizza', async (req, res) => {
     }
 });
 
+app.get('/pizza/:id', async (req, res) => {
+    try{
+        const { id } = req.params;
+        const pool = await sql.connect(config);
+        const result = await pool.request()
+        .input('ID_mon', sql.NVarChar, id) // Truyền tham số an toàn
+        .execute('FindMonAnDetails'); // Gọi stored procedure
+        res.status(200).json(result.recordset);
+    }
+    catch(err){
+      console.error('L��i:', err.message);
+      res.status(500).send('Đã xảy ra l��i');
+    }
+})
+
+app.post('/pizza', async(req, res) => {
+    try {
+        const { TenThucDon, gia,loai, pizza_flag,Thucuong_flag,Kich_co,loai_mon } = req.body;
+        const pool = await sql.connect(config);
+        const result = await pool.request()
+        .input('Ten_mon', sql.NVarChar, (TenThucDon))
+        .input('GiaTien',sql.NVarChar, (gia))
+        .input('Loai',sql.NVarChar,(loai))
+        .input('Pizza_flag', sql.NVarChar,(pizza_flag))
+        .input('Thuc_uong_flag', sql.NVarChar,(Thucuong_flag))
+        .input('Kich_co',sql.NVarChar,(Kich_co))
+        .input('Loai_mon',sql.NVarChar,(loai_mon))
+        .execute('AddLuaChonThucDon')
+        res.json(result.recordset);
+    }
+    catch(err){
+      console.error('Lỗi:', err.message);
+      res.status(500).send('Đã xảy ra lỗi');
+    }
+})
+
 app.listen(8000, () => {
     console.log("The Server for pizza store is running in http://localhost:8000")
 })
