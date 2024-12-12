@@ -31,7 +31,19 @@ app.get('/pizza', async (req, res) => {
       res.status(500).send('Đã xảy ra lỗi');
     }
 });
+app.get('/', async(req, res)=>{
+    try {
+        
+        const pool = await sql.connect(config);
+        const result = await pool.request()
 
+
+
+    } catch (err) {
+      console.error('Lỗi:', err.message);
+      res.status(500).send('Đã xảy ra lỗi');
+    }
+});
 app.listen(8000, () => {
     console.log("The Server for pizza store is running in http://localhost:8000")
 })
