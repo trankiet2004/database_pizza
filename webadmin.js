@@ -13,9 +13,11 @@ app.use(express.static(`${__dirname}/Front_End`));
 
 const {sql,config} = require('./config/db'); // Kết nối từ tệp db.js
 const authRoutes = require('./routes/auth');
+const shiftRoutes = require('./routes/shift');
 
 
 app.use('/', authRoutes);
+app.use('/shift', shiftRoutes); // shift
 app.get('/pizza', async (req, res) => {
     try {
         //const Kich_co = ''

@@ -61,6 +61,41 @@ class Employee{
             return null;
         }
     }
-    
+    async getemployeebyid(employee_id){
+        try{
+            let pool = await sql.connect(config);
+            const result = await pool.request()
+           .input('employee_id',sql.VarChar,employee_id)
+           .execute('spGetEmployeeById');
+            return result.recordset[0];
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    async deleteemployeebyid(employee_id){
+        try{
+            let pool = await sql.connect(config);
+            const result = await pool.request()
+           .input('employee_id',sql.VarChar,employee_id)
+           .execute('spDeleteEmployeeById');
+           return result;
+        } 
+        catch (err) {
+            console.error(err);
+        }
+    }
+    async updateEmployee(employee_id,phone,salary){
+        try{
+            let pool = await sql.connect(config);
+            const result = await pool.request()
+           .input('employee_id',sql.VarChar,employee_id)
+           .input('phone',sql.VarChar,phone)
+           .input('salary',sql.Int,salary)
+           .execute('spUpdateEmployee');
+            return result;
+        } catch (err) {
+            console.error(err);
+        }
+    }
 }
 module.exports = Employee; 

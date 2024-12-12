@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
         const today=new Date();
         today.setHours(0, 0, 0, 0);
         if (birthDate > today||birthDate === today) {
-            return res.status(400).json({ message: 'Date of birth must be in the past.' });
+            return res.status(400).json({ message: 'Sai ngày sinh.' });
         }
         const employeeId = await employee.addEmployee(name, phone, birth_date, isChef, username, password);
         res.json({ message: `Đăng ký thành công! ${username}`, employee_id: employeeId });
@@ -40,3 +40,42 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: 'Đã xảy ra lỗi.', error: err });
     }
 };
+exports.listEmployee = async (req, res) => {
+    try {
+        const listemployees = await employee.getAllEmployees();
+        console.log(listemployees)
+        res.status(200).json(listemployees);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+exports.searchEmployee = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id);
+        const findemployee = await employee.getemployeebyid(id);
+        res.status(200).json(findemployee);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+exports.deleteEmployee = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await employee.deleteemployeebyid(id);
+        res.status(200).json({ message: 'Xóa thành công.' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+exports.updateEmployee = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { phone,salary} = req.body;
+        const result = await employee.updateEmployee(id, phone, salary);
+        res.status(200).json({ message: 'Cập nhật thành công.' });
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
