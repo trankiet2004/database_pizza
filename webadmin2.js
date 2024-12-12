@@ -17,8 +17,6 @@ const { app } = require('./webadmin');
 
 // lấy code từ khúc này trở xuống nha mấy anh
 
-
-// API để gọi thủ tục lưu trữ AddMonAnToCombo
 app.post('/add-mon-an-to-combo', async (req, res) => {
     const { ID_Combo, ID_MonAn, SoLuong } = req.body;
 
@@ -27,11 +25,7 @@ app.post('/add-mon-an-to-combo', async (req, res) => {
         if (!ID_Combo || !ID_MonAn || SoLuong == null) {
             return res.status(400).send({ message: 'Thiếu dữ liệu bắt buộc: ID_Combo, ID_MonAn hoặc SoLuong.' });
         }
-
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
-
-        // Gọi thủ tục lưu trữ AddMonAnToCombo
         await pool.request()
             .input('ID_Combo', sql.NVarChar(10), ID_Combo)
             .input('ID_MonAn', sql.NVarChar(10), ID_MonAn)
@@ -45,7 +39,6 @@ app.post('/add-mon-an-to-combo', async (req, res) => {
     }
 });
 
-// API để gọi thủ tục lưu trữ AddMultipleNguyenLieu
 app.post('/add-multiple-nguyen-lieu', async (req, res) => {
     const { NguyenLieuList } = req.body;
 
@@ -54,7 +47,6 @@ app.post('/add-multiple-nguyen-lieu', async (req, res) => {
     }
 
     try {
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
 
         // Tạo bảng tạm cho danh sách nguyên liệu
@@ -80,8 +72,6 @@ app.post('/add-multiple-nguyen-lieu', async (req, res) => {
                 item.Ngay_mua
             );
         });
-
-        // Gọi thủ tục lưu trữ AddMultipleNguyenLieu
         await pool.request()
             .input('NguyenLieuList', table)
             .execute('AddMultipleNguyenLieu');
@@ -93,7 +83,6 @@ app.post('/add-multiple-nguyen-lieu', async (req, res) => {
     }
 });
 
-// API để gọi thủ tục lưu trữ AddNguyenLieu
 app.post('/add-nguyen-lieu', async (req, res) => {
     const {
         Ten_nguyen_lieu,
@@ -114,10 +103,7 @@ app.post('/add-nguyen-lieu', async (req, res) => {
     }
 
     try {
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
-
-        // Gọi thủ tục lưu trữ AddNguyenLieu
         let result = await pool.request()
             .input('Ten_nguyen_lieu', sql.NVarChar(255), Ten_nguyen_lieu)
             .input('Gia_mua', sql.Decimal(10, 2), Gia_mua)
@@ -142,15 +128,12 @@ app.post('/add-nguyen-lieu', async (req, res) => {
         });
     }
 });
-// API để gọi thủ tục lưu trữ ViewLuaChonThucDon
+
 app.get('/view-lua-chon-thuc-don', async (req, res) => {
     const { Loai } = req.query;
 
     try {
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
-
-        // Gọi thủ tục lưu trữ ViewLuaChonThucDon
         let result = await pool.request()
             .input('Loai', sql.NVarChar(50), Loai)
             .execute('ViewLuaChonThucDon');
@@ -161,15 +144,12 @@ app.get('/view-lua-chon-thuc-don', async (req, res) => {
         res.status(500).send({ message: 'Lỗi khi hiển thị lựa chọn thực đơn.', error: error.message });
     }
 });
-// API để gọi thủ tục lưu trữ GetMonAnBySize
+
 app.get('/get-mon-an-by-size', async (req, res) => {
     const { KichCo } = req.query;
 
     try {
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
-
-        // Gọi thủ tục lưu trữ GetMonAnBySize
         let result;
         if (!KichCo || KichCo.trim() === '') {
             result = await pool.request().query('SELECT * FROM MonAnDon');
@@ -185,15 +165,12 @@ app.get('/get-mon-an-by-size', async (req, res) => {
         res.status(500).send({ message: 'Lỗi khi lấy danh sách món ăn theo kích thước.', error: error.message });
     }
 });
-// API để gọi thủ tục lưu trữ GetDishDetailsInCombo
+
 app.get('/get-dish-details-in-combo/:ID_Combo', async (req, res) => {
     const { ID_Combo } = req.params;
 
     try {
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
-
-        // Gọi thủ tục lưu trữ GetDishDetailsInCombo
         let result = await pool.request()
             .input('ID_Combo', sql.NVarChar(10), ID_Combo)
             .execute('GetDishDetailsInCombo');
@@ -213,7 +190,6 @@ app.get('/show-nguyen-lieu', async (req, res) => {
     const { FilterColumn, FilterValue } = req.query;
 
     try {
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
 
         let result;
@@ -221,7 +197,6 @@ app.get('/show-nguyen-lieu', async (req, res) => {
             // Lấy tất cả nguyên liệu nếu không có bộ lọc
             result = await pool.request().query('SELECT * FROM NguyenLieu');
         } else {
-            // Lọc theo cột và giá trị được cung cấp
             result = await pool.request()
                 .input('FilterColumn', sql.NVarChar(50), FilterColumn)
                 .input('FilterValue', sql.NVarChar(255), FilterValue)
@@ -248,10 +223,7 @@ app.put('/update-nguyen-lieu/:ID_nguyen_lieu', async (req, res) => {
     } = req.body;
 
     try {
-        // Kết nối đến SQL Server
         let pool = await sql.connect(config);
-
-        // Gọi thủ tục lưu trữ UpdateNguyenLieu
         await pool.request()
             .input('ID_nguyen_lieu', sql.NVarChar(10), ID_nguyen_lieu)
             .input('Ten_nguyen_lieu', sql.NVarChar(255), Ten_nguyen_lieu)
