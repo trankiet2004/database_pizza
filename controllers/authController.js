@@ -15,3 +15,22 @@ exports.register = async (req, res) => {
         }
     }
 };
+exports.login = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const employeeData = await employee.checkEmployee(username, password);
+
+        if (employeeData) {
+            // Điều hướng dựa trên kết quả `redirect`
+            res.json({
+                message: employeeData.message,
+                redirect: employeeData.redirect,
+            });
+        } else {
+            res.status(401).json({ message: 'Sai tên đăng nhập hoặc mật khẩu.' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Đã xảy ra lỗi.', error: err });
+    }
+};

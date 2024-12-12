@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Đăng Nhập</title>
+    <title>Đăng Ký</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -61,10 +61,26 @@
                                     </div>
                         
                                     <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <i class="fa fa-phone fa-lg me-3 fa-fw"></i>
                                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                                            <input type="email" id="email" class="form-control" />
-                                            <label class="form-label" for="email" style="color: black;">Email</label>
+                                            <input type="text" id="phone" class="form-control" />
+                                            <label class="form-label" for="phone" style="color: black;">Số Điện Thoại</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fa fa-calendar fa-lg me-3 fa-fw"></i>
+                                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                                            <input type="date" id="birth_date" class="form-control" />
+                                            <label class="form-label" for="birth_date" style="color: black;">Ngày Sinh</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div data-mdb-input-init class="form-outline flex-fill mb-0">
+                                            <input type="text" id="username" class="form-control" />
+                                            <label class="form-label" for="username" style="color: black;">Username</label>
                                         </div>
                                     </div>
                         
@@ -83,16 +99,14 @@
                                             <label class="form-label" for="repassword">Nhập lại password</label>
                                         </div>
                                     </div>
-                        
-                                    <div class="form-check d-flex justify-content-center mb-5">
-                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                                        <label class="form-check-label" for="form2Example3">
-                                            Tôi đồng ý với tất cả các tuyên bố trong <a href="#!">Điều khoản dịch vụ</a>
-                                        </label>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="master-chef" checked>
+                                        <label class="form-check-label" for="master-chef">Đầu Bếp</label>
                                     </div>
-                        
+                                    
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg" style="width: 100%; border-radius: 40px;">Đăng Ký</button>
+                                        <button id="button-register" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg" style="width: 100%; border-radius: 40px;">Đăng Ký</button>
                                     </div>
                                 </form>
                             </div>
@@ -126,6 +140,54 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+        document.getElementById('button-register').addEventListener('click', async function (event) {
+            event.preventDefault();
+               
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const birth_date = document.getElementById('birth_date').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const repassword = document.getElementById('repassword').value;
+               
+            if (password !== repassword) {
+                alert('Password và xác nhận password không khớp!');
+                return;
+            }
+               
+            const payload = {
+                name: name,
+                phone: phone,
+                birth_date: birth_date,
+                chef_flag: document.getElementById('master-chef').checked ? "TRUE" : "FALSE",
+                username: username,
+                password: password
+            };
+               
+            try {
+                const response = await fetch('http://localhost:8000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    alert(data.message);
+                    window.location.href = '/login.html';
+                } else {
+                    alert(data.message || 'Đăng ký thất bại!');
+                }
+            } catch (error) {
+                console.error('Lỗi khi đăng ký:', error);
+                alert('Đã xảy ra lỗi khi kết nối đến API.');
+            }
+        });
+    </script>    
 </body>
 
 </html>

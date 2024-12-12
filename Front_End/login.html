@@ -44,35 +44,37 @@
 
 
         <!-- Menu Start -->
-        <div class="container-xxl" style="background-color: transparent;">
-            <div class="container" style="width: 40%; height: 500px; margin-top: 7%;" align="center">
-                <p class="fs-1" style="font-weight: bold; color: black; padding: 10%;">
-                    Đăng Nhập
-                </p>
+        <form action="">
+            <div class="container-xxl" style="background-color: transparent;">
+                <div class="container" style="width: 40%; height: 500px; margin-top: 7%;" align="center">
+                    <p class="fs-1" style="font-weight: bold; color: black; padding: 10%;">
+                        Đăng Nhập
+                    </p>
 
-                <div class="mb-3" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
-                    <label for="username" class="form-label" style="color: black;">
-                        <i class="fa fa-user" style="margin-right: 20px;"></i> Username
-                    </label>                    
-                    <input type="email" class="form-control" id="username" placeholder="Type your username" style="border: none; border-bottom: 1px solid black;">
+                    <div class="mb-3" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+                        <label for="username" class="form-label" style="color: black;">
+                            <i class="fa fa-user" style="margin-right: 20px;"></i> Username
+                        </label>                    
+                        <input type="text" class="form-control" id="username" placeholder="Type your username" style="border: none; border-bottom: 1px solid black;">
+                    </div>
+
+                    <div class="mb-3" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+                        <label for="password" class="form-label" style="color: black;">
+                            <i class="fa fa-lock" style="margin-right: 20px;"></i>Password
+                        </label>                    
+                        <input type="password" id="password" class="form-control" placeholder="Type your password" style="border: none; border-bottom: 1px solid black;">
+                    </div>
+
+                    <!-- <a href="" style="color: black; float: right; font-style: italic; margin-bottom: 5%;" class="fs-6">
+                        Quên mật khẩu? 
+                    </a> -->
+
+                    <button id="login-button" class="btn text-white" style="background: #DC802A; border-radius: 40px; width: 100%; margin-top: 5%;">
+                        Đăng Nhập
+                    </button>
                 </div>
-
-                <div class="mb-3" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
-                    <label for="password" class="form-label" style="color: black;">
-                        <i class="fa fa-lock" style="margin-right: 20px;"></i>Password
-                    </label>                    
-                    <input type="password" id="password" class="form-control" placeholder="Type your password" style="border: none; border-bottom: 1px solid black;">
-                </div>
-
-                <a href="" style="color: black; float: right; font-style: italic; margin-bottom: 5%;" class="fs-6">
-                    Quên mật khẩu? 
-                </a>
-
-                <button id="login-button" class="btn text-white" style="background: #DC802A; border-radius: 40px; width: 100%;">
-                    Đăng Nhập
-                </button>
             </div>
-        </div>
+        </form>
         <!-- Menu End -->
 
 
@@ -93,7 +95,39 @@
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="js/main.js"></script>    
+    <script>
+        document.getElementById('login-button').addEventListener('click', async (event) => {
+            event.preventDefault(); // Ngăn reload trang
+    
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+    
+            try {
+                const response = await fetch('http://localhost:8000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    alert(data.message);
+                    // Điều hướng đến trang phù hợp
+                    window.location.href = data.redirect;
+                } else {
+                    alert(data.message || 'Đăng nhập thất bại!');
+                }
+            } catch (error) {
+                console.error('Lỗi:', error);
+                alert('Đã xảy ra lỗi khi kết nối đến API.');
+            }
+        });
+    </script>
+    
 </body>
 
 </html>

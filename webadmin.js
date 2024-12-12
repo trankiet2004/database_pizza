@@ -1,7 +1,7 @@
 const express =require('express');
 const app = express();
 const cors=require('cors');
-const sql = require('mssql');
+// const sql = require('mssql');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/Front_End`));
 
-const config = require('./config/db'); // Kết nối từ tệp db.js
+const {sql,config} = require('./config/db'); // Kết nối từ tệp db.js
 const authRoutes = require('./routes/auth');
 
 

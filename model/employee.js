@@ -22,5 +22,36 @@ class Employee{
             console.error(err);
         }
     }
+    async checkEmployee(username, password) {
+        try {
+            let pool = await sql.connect(config);
+            const result = await pool.request()
+                .input('username', sql.VarChar, username)
+                .input('password', sql.VarChar, password)
+                .output('user_type', sql.VarChar) // Lấy kiểu tài khoản
+                .execute('spLoginUser');
+    
+            const userType = result.output.user_type;
+    
+            // Xác định loại tài khoản và URL điều hướng
+            if (userType === 'Manager') {
+                return {
+                    redirect: 'http://localhost:8000/admin/menu.html',
+                    message: 'Welcome, Manager!',
+                };
+            } else if (userType === 'Employee') {
+                return {
+                    redirect: 'http://localhost:8000/staff/index.html',
+                    message: 'Welcome, Employee!',
+                };
+            } else {
+                return null; // Không tìm thấy tài khoản
+            }
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
+    
 }
 module.exports = Employee; 
