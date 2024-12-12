@@ -41,10 +41,11 @@ app.post('/pizza', async(req, res) => {
         .input('GiaTien',sql.NVarChar, (gia))
         .input('Loai',sql.NVarChar,(loai))
         .input('Pizza_flag', sql.NVarChar,(pizza_flag))
-        .input('Thucuong_flag', sql.NVarChar,(Thucuong_flag))
+        .input('Thuc_uong_flag', sql.NVarChar,(Thucuong_flag))
         .input('Kich_co',sql.NVarChar,(Kich_co))
         .input('Loai_mon',sql.NVarChar,(loai_mon))
         .execute('AddLuaChonThucDon')
+        res.json(result.recordset);
     }
     catch(err){
       console.error('Lỗi:', err.message);
