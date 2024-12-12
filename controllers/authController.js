@@ -5,6 +5,12 @@ exports.register = async (req, res) => {
     try {
         const { name, phone, birth_date, chef_flag, username, password } = req.body;
         var isChef = (chef_flag === "FALSE") ? 0 : 1;
+        const birthDate = new Date(birth_date);
+        const today=new Date();
+        today.setHours(0, 0, 0, 0);
+        if (birthDate > today||birthDate === today) {
+            return res.status(400).json({ message: 'Date of birth must be in the past.' });
+        }
         const employeeId = await employee.addEmployee(name, phone, birth_date, isChef, username, password);
         res.json({ message: `Đăng ký thành công! ${username}`, employee_id: employeeId });
     } catch (error) {

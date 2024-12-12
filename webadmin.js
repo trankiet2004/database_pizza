@@ -18,11 +18,11 @@ const authRoutes = require('./routes/auth');
 app.use('/', authRoutes);
 app.get('/pizza', async (req, res) => {
     try {
-        const Kich_co = ''
+        //const Kich_co = ''
         const pool = await sql.connect(config);
         const result = await pool.request()
-        .input('KichCo', sql.NVarChar, Kich_co) // Truyền tham số an toàn
-        .query('EXEC GetMonAnBySize @KichCo = @KichCo'); // Gọi stored procedure
+        //.input('KichCo', sql.NVarChar, Kich_co) // Truyền tham số an toàn
+        .query('EXEC ViewLuaChonThucDonDetails'); // Gọi stored procedure
 
         res.json(result.recordset);
   
@@ -31,6 +31,26 @@ app.get('/pizza', async (req, res) => {
       res.status(500).send('Đã xảy ra lỗi');
     }
 });
+
+app.post('/pizza', async(req, res) => {
+    try {
+        const { TenThucDon, gia,loai, pizza_flag,Thucuong_flag,Kich_co,loai_mon } = req.body;
+        const pool = await sql.connect(config);
+        const result = await pool.request()
+        .input('Ten_mon', sql.NVarChar, (TenThucDon))
+        .input('GiaTien',sql.NVarChar, (gia))
+        .input('Loai',sql.NVarChar,(loai))
+        .input('Pizza_flag', sql.NVarChar,(pizza_flag))
+        .input('Thucuong_flag', sql.NVarChar,(Thucuong_flag))
+        .input('Kich_co',sql.NVarChar,(Kich_co))
+        .input('Loai_mon',sql.NVarChar,(loai_mon))
+        .execute('AddLuaChonThucDon')
+    }
+    catch(err){
+      console.error('Lỗi:', err.message);
+      res.status(500).send('Đã xảy ra lỗi');
+    }
+})
 
 app.listen(8000, () => {
     console.log("The Server for pizza store is running in http://localhost:8000")

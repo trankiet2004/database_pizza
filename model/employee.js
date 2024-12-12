@@ -5,6 +5,15 @@ class Employee{
         if(!instance) instance = new Employee();
         return instance;
     }
+    async getAllEmployees(){
+        try{
+            let pool = await sql.connect(config);
+            const result = await pool.request().execute('spGetAllEmployees');
+            return result.recordset;
+        } catch (err) {
+            console.error(err);
+        }
+    }
     async addEmployee(name,phone,birth_date,chef_flag,username,password){
         try{
             let pool = await sql.connect(config);
