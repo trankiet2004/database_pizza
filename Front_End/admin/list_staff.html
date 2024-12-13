@@ -48,12 +48,12 @@
                 let query = $("#search-staff-input").val().toLowerCase();
                 console.log("Query:", query);
 
-                $('#list-staff-container').each(function() {
+                $('#list-staff-container .container').each(function() {
                     let staffID = $(this).find("#mnv").text().toLowerCase();
                     let staffName = $(this).find("#namenv").text().toLowerCase();
                     console.log("ID:", staffID);
 
-                    if(query.includes(staffID) || query.includes(staffName)) {
+                    if(staffID.includes(query) || staffName.includes(query)) {
                         $(this).show();
                     } else {
                         $(this).hide();
@@ -145,7 +145,8 @@
                         <div class="col col-3"></div>
                     </div>                    
                 </div>
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+
+                <div class="text-center wow fadeInUp" data-wow-delay="0.2s">
                     <div class="container" id="list-staff-container" style="width: 1040px; height: auto; border: 1px solid black; border-radius: 10px; margin-top: 59px; padding: 11px 11px 0px;">
                         <div class="container" style="width: 100%; height: 129px; border: 1px solid black; border-radius: 10px; margin-bottom: 11px;">
                             <div class="row" style="height: 100%; background-color: transparent; padding: 18px 16px;">
@@ -156,7 +157,7 @@
                                 <div class="col col-6" style="background-color: transparent;">
                                     <div class="container">
                                         <div class="row" style="background-color: transparent;">
-                                            <div class="col col-12" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+                                            <div class="col col-12" style="display: flex; flex-flow: wrap column; justify-content: flex-start; align-items: flex-start;">
                                                 <p style="font-size: 16px; line-height: 20.8px; text-underline-position: from-font; color: #000000;">
                                                     <nobr style="font-weight: bold;">
                                                         Mã Nhân Viên: 
@@ -170,7 +171,7 @@
                                                         Tên Nhân Viên: 
                                                     </nobr>
                                                     
-                                                    <nobr id="namenv">Lê Nguyễn Nam Khánh</nobr>
+                                                    <nobr id="namenv">A</nobr>
                                                 </p>
 
                                                 <p style="font-size: 16px; line-height: 20.8px; text-underline-position: from-font; color: #000000;">
@@ -331,6 +332,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="text-center wow fadeInUp" data-wow-delay="0.3s" style="margin-top: 2%;">
+                    <a href="logup.html" style="background-color: #DC802A; border-radius: 20px; width: 40%; color: white;" class="btn">
+                        Thêm Nhân Viên
+                    </a>
                 </div>
             </div>
         </div>
@@ -415,6 +422,7 @@
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
+    <script src="js/list_staff.js"></script>
 </body>
 
 </html> 
