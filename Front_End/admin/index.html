@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>THÔNG TIN MÓN ĂN</title>
+    <title>QUẢN LÝ KHO HÀNG</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -56,10 +56,10 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0 pe-4">
                         <a href="index.html" class="nav-item nav-link">Trang chủ</a>
-                        <a href="menu.html" class="nav-item nav-link active">Menu</a>
+                        <a href="menu.html" class="nav-item nav-link">Menu</a>
                         <a href="list_staff.html" class="nav-item nav-link">Nhân viên</a>
                         <a href="lich_su.html" class="nav-item nav-link">Lịch sử</a>
-                        <a href="kho_hang.html" class="nav-item nav-link">Kho hàng</a>
+                        <a href="kho_hang.html" class="nav-item nav-link active">Kho hàng</a>
                     </div>
                     <div class="dropdown">
                         <div style="position: relative; display: inline-block;">
@@ -85,93 +85,122 @@
         <!-- Menu Start -->
         <div class="container-xxl">
             <div class="container">
-                <div class="row" style="height: 609px;">
-                    <div class="col col-5" style="background-color: transparent; padding: 10px;">
-                        <div style="border: 1px solid black; border-radius: 10px; width: 100%; height: 100%; display: flex; flex-wrap: wrap; justify-content: center; padding-top: 60px; padding-bottom: 20px;">
-                            <img style="width: 422px; height: 344px; border: 1px solid black; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
+                <div class="row" style="display: flex; flex-flow: wrap row; justify-content: center;">
+                    <div class="col col-5" style="border: 1px solid black; border-radius: 10px; height: auto; flex-flow: wrap column; justify-content: space-between; padding: 20px; margin-right: 5%;">
+                        <p style="font-size: 36px; font-weight: 700; line-height: 43.57px; color: #DC802A;" class="text-uppercase" align="center">
+                            DANH SÁCH TRỰC
+                        </p>
 
-                            <p style="font-size: 36px; font-weight: 600; line-height: 46.8px; color: black; width: 100%;" align="center">
-                                Pizza Hải Sản (Cỡ Vừa)
-                            </p>
+                        <div id="danh-sach-truc" class="container">
+                            <div class="row" style="border: 1px solid black; border-radius: 10px; height: auto; padding: 18px 18px 0; margin-bottom: 15px;">
+                                <div class="col col-4">
+                                    <img style="width: 107px; height: 93px; border-radius: 1000px" src="https://s3-alpha-sig.figma.com/img/9a6b/f24f/3ab2b1f66c877c09a8254f7601865724?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=SrEooKhUpDYbseQcZ-nEmd4ht-f2eEW6IJKm6j6xbTURD-NJ~AeBu6E7NPTG9U55Q7nt~2QGiSfe0dz1qt77lI8sdHflARXs1yR4whvOk4t7AtEWYMtEsSiD8tXYEqwjruPwn7DZ-rsGOCKmW6ShRB6eMQQ7glRbNi1sVmbiDKMoKzyTnsS66-t-ufnILO3d8IaLCsDwDo8i~Wa0XLQ1UkRysed88dMcUotuEC1VzYj08ruAW5BmBE0WHjwZ0xTtpJ-I91gqaDicTvzGsmdJooFh411wv-vhJIohl-iUgSSgM~RnwWrgB7bl6QIXmXZGX-h3W~cl5Nl5-nui9Pj3TQ__" alt="">
+                                </div>
 
-                            <p style="font-weight: 600; font-size: 16px; line-height: 20.8px; width: 75%; color: black;" align="left">
-                                Mô Tả: 
-                            </p>
+                                <div class="col col-8">
+                                    <p style="font-size: 16px; line-height: 20.8px; color: black;">
+                                        <nobr style="font-weight: 700;">Mã Nhân Viên: </nobr>
+                                        <nobr style="font-weight: 500;" id="ma-nhan-vien">E-123456</nobr>
+                                    </p>
 
-                            <p style="font-weight: 400; font-size: 14px; line-height: 18.2px; font-style: italic; color: black; width: 75%;" align="left">
-                                Pizza mùa hè mang lại cho người dùng một trải nghiệm tuyệt vời của biển cả 
-                            </p>
+                                    <p style="font-size: 16px; line-height: 20.8px; color: black;">
+                                        <nobr style="font-weight: 700;">Tên Nhân Viên: </nobr>
+                                        <nobr style="font-weight: 500;" id="ten-nhan-vien">Lê Nguyễn Nam Khánh</nobr>
+                                    </p>
 
-                            <button type="button" class="btn" style="background-color: #DC802A; color: white; width: 275px; height: 51px; border-radius: 15px;">
-                                ĐỔI ẢNH GIAO DIỆN
-                            </button>
+                                    <p style="font-size: 16px; line-height: 20.8px; color: black;">
+                                        <nobr style="font-weight: 700;">Số Điện Thoại: </nobr>
+                                        <nobr style="font-weight: 500;" id="so-dien-thoai">0933216169</nobr>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col col-7" style="background-color: transparent; padding: 10px;">
-                        <div style="border: 1px solid black; border-radius: 10px; width: 100%; height: 100%; padding: 42px; display: flex; flex-flow: wrap column; justify-content: space-between;">
-                            <p style="color: #DC802A; font-size: 40px; font-weight: 700; line-height: 52px;" align="center">
-                                THÔNG TIN MÓN ĂN
-                            </p>
+                    <div class="col col-6" style="border: 1px solid black; border-radius: 10px; height: auto; flex-flow: wrap column; justify-content: space-between; padding: 20px;">
+                        <p style="font-size: 36px; font-weight: 700; line-height: 43.57px; color: #DC802A;" class="text-uppercase" align="center">
+                            THỰC ĐƠN
+                        </p>
 
-                            <p style="margin-top: 20px; font-weight: 600; font-size: 28px; line-height: 36.4px;">
-                                <nobr style="color: #DC802A;">
-                                    Mã món ăn: 
-                                </nobr>
-                                
-                                <input id="ma-mon-an" type="text" value="F-000001" style="color: black; font-weight: 600; border: none;">
-                            </p>
+                        <div id="thuc-don" class="container">
+                            <div class="row" style="border: 1px solid black; border-radius: 10px; height: auto; padding: 10px; margin-bottom: 15px;">
+                                <div class="col col-3">
+                                    <img style="width: 90px; height: 80px; border-radius: 1000px" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CnMWhEGqY8VDBxBZ-9IK2W3ek9w3vm0Y2u4mZ6LrmIrx78czOXfGzsSL6d~U5hKjn7PpL1mykymA80yOQEPMrDFJtiNbZOpudgESRbntnaBGIkbHX4pK7UwaEkc5K0qUyFICcEYMGfKeTLMlDL8KinWGW~5SOAzIItKLhFyK~FxABsYYtMqpv9xbmgpwCvVn9~Z7ysR8WiYtzV0MPXY~x8IeAEp5wxnN8KcyVW44AK0Vnux6wQ855gEhtu3rFEPviB6KJKnUlLLjqZXPFqAoQvst3-Na1OIW6PSjqtE5pKSRkoNDeF-OlrvbCN-qtggPlqGPHLwHfuXqGKYtzij9ow__" alt="">
+                                </div>
 
-                            <p style="margin-top: 20px; font-weight: 600; font-size: 28px; line-height: 36.4px;">
-                                <nobr style="color: #DC802A;">
-                                    Tên món ăn: 
-                                </nobr>
-                                
-                                <input id="ten-mon-an" type="text" value="Pizza Hải Sản (Cỡ Vừa)" style="color: black; font-weight: 600; border: none;">
-                            </p>
+                                <div class="col col-9">
+                                    <div style="display: flex; flex-flow: wrap row; justify-content: space-between; border-bottom: 1px solid black;">
+                                        <nobr style="font-size: 16px; line-height: 20.8px; font-weight: 600; color: black;">
+                                            Pizza Hải Sản - (Cỡ Vừa)
+                                        </nobr>
 
-                            <p style="margin-top: 20px; font-weight: 600; font-size: 28px; line-height: 36.4px;">
-                                <nobr style="color: #DC802A;">
-                                    Tình trạng: 
-                                </nobr>
-                                
-                                <input id="tinh-trang" type="text" value="Còn Hàng" style="color: black; font-weight: 600; border: none;">
-                            </p>
+                                        <nobr style="font-size: 16px; font-weight: 800; line-height: 18.75px; color: #06B92A;" id="ma-nhan-vien">
+                                            150.000 VND
+                                        </nobr>
+                                    </div>
 
-                            <p style="margin-top: 20px; font-weight: 600; font-size: 28px; line-height: 36.4px;">
-                                <nobr style="color: #DC802A;">
-                                    Topping: 
-                                </nobr>
-                                
-                                <input id="topping" type="text" value="Dứa - Mực - Ớt chuông" style="color: black; font-weight: 600; border: none;">
-                            </p>
-
-                            <p style="margin-top: 20px; font-weight: 600; font-size: 28px; line-height: 36.4px;">
-                                <nobr style="color: #DC802A;">
-                                    Loại món: 
-                                </nobr>
-                                
-                                <input id="loai-mon" type="text" value="Pizza" style="color: black; font-weight: 600; border: none;">
-                            </p>
-
-                            <p style="margin-top: 20px; font-weight: 600; font-size: 28px; line-height: 36.4px;">
-                                <nobr style="color: #DC802A;">
-                                    Giá tiền: 
-                                </nobr>
-                                
-                                <input id="gia-tien" type="text" value="150.000 VND/Cái" style="color: black; font-weight: 600; border: none;">
-                            </p>
-
-                            <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                <button id="modify-food-button" class="btn" id="chinh-sua" style="background-color: #49F057; color: white; font-size: 20px; font-weight: 500; line-height: 26px; width: 215px; height: 43px; border-radius: 10px;">
-                                    CHỈNH SỬA
-                                </button>
-
-                                <button id="delete-food-button" class="btn" id="xoa-mon-an" style="background-color: #F48787; color: white; font-size: 20px; font-weight: 500; line-height: 26px; width: 215px; height: 43px; border-radius: 10px;">
-                                    XÓA MÓN ĂN
-                                </button>
+                                    <div style="display: flex; flex-flow: wrap row-reverse; justify-content: flex-start; align-items: flex-end; height: 60%;">
+                                        <a href="./food_info.html" type="button" style="color: white; background-color: #49F057; width: 50%; border-radius: 20px; height: 34px; float: right;" class="btn text-capitalize">
+                                            Còn Hàng
+                                        </a>
+                                    </div>                                                                        
+                                </div>
                             </div>
-                        </div>                        
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row" style="margin-top: 20px; display: flex; flex-flow: wrap row; justify-content: center;">
+                    <p style="font-size: 36px; font-weight: 700; line-height: 43.57px; color: #DC802A;" class="text-uppercase" align="center">
+                        THÊM CA TRỰC MỚI
+                    </p>
+
+                    <div style="width: 60%; padding: 35px; border: 1px solid black; border-radius: 10px;">
+                        <div class="mb-3 row">
+                            <label for="gio-bat-dau" class="col col-4 col-form-label" style="font-size: 24px; font-weight: 700; line-height: 29.05px; color: black;">
+                                GIỜ BẮT ĐẦU:
+                            </label>
+
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="gio-bat-dau" value="" style="border: 1px solid black; border-radius: 10px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="gio-ket-thuc" class="col col-4 col-form-label" style="font-size: 24px; font-weight: 700; line-height: 29.05px; color: black;">
+                                GIỜ KẾT THÚC:
+                            </label>
+
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="gio-ket-thuc" value="" style="border: 1px solid black; border-radius: 10px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="ngay-thuc-hien" class="col col-4 col-form-label" style="font-size: 24px; font-weight: 700; line-height: 29.05px; color: black;">
+                                NGÀY THỰC HIỆN:
+                            </label>
+
+                            <div class="col col-8">
+                                <input type="text" class="form-control" id="ngay-thuc-hien" value="" style="border: 1px solid black; border-radius: 10px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="so-nguoi-thuc-hien-max" class="col col-7 col-form-label" style="font-size: 24px; font-weight: 700; line-height: 29.05px; color: black;">
+                                SỐ NGƯỜI THỰC HIỆN TỐI ĐA: 
+                            </label>
+
+                            <div class="col col-5">
+                                <input type="text" class="form-control" id="so-nguoi-thuc-hien-max" value="" style="border: 1px solid black; border-radius: 10px;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row" style="display: flex; flex-flow: wrap row; justify-content: center;">
+                            <button id="them-ca-truc-button" style="background: #DC802A; width: 50%; border-radius: 20px;" class="btn text-white">
+                                Thêm Ca Trực
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -258,8 +287,7 @@
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
-    <script src="js/food_info.js"></script>
-    <script src="js/delete_food.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
