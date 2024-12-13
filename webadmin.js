@@ -297,6 +297,29 @@ app.put('/update-nguyen-lieu/:ID_nguyen_lieu', async (req, res) => {
     }
 });
 
+app.delete('/pizza/:id_mon', async (req, res) => {
+    const idMon = req.params.id_mon;
+
+    try {
+        let pool = await sql.connect(config);
+
+        let result = await pool.request()
+            .input('ID_Mon', sql.NVarChar(10), idMon)
+            .execute('DeleteLuaChonThucDon');
+
+        res.status(200).send({
+            message: `Đã thực hiện xóa lựa chọn thực đơn với ID: ${idMon}`,
+            details: result
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: 'Lỗi khi xóa lựa chọn thực đơn.',
+            error: err.message
+        });
+    }
+});
+
 
 app.listen(8000, () => {
     console.log("The Server for pizza store is running in http://localhost:8000")
