@@ -319,6 +319,141 @@ app.delete('/pizza/:id_mon', async (req, res) => {
         });
     }
 });
+// API để gọi thủ tục lưu trữ DeleteNguyenLieu
+app.delete('/delete-nguyen-lieu/:ID_NguyenLieu', async (req, res) => {
+    const { ID_NguyenLieu } = req.params;
+    try {
+        let pool = await sql.connect(config);
+
+        await pool.request()
+            .input('ID_NguyenLieu', sql.NVarChar(10), ID_NguyenLieu)
+            .execute('DeleteNguyenLieu');
+
+        res.status(200).send({ message: 'Nguyên liệu đã được xóa thành công.' });
+    } catch (error) {
+        console.error('Lỗi khi xóa nguyên liệu:', error);
+        res.status(500).send({ message: 'Lỗi khi xóa nguyên liệu.', error: error.message });
+    }
+});
+
+// API để gọi thủ tục lưu trữ DeleteLuaChonThucDon
+app.delete('/delete-lua-chon-thuc-don/:ID_Mon', async (req, res) => {
+    const { ID_Mon } = req.params;
+
+    try {
+        let pool = await sql.connect(config);
+
+        await pool.request()
+            .input('ID_Mon', sql.NVarChar(10), ID_Mon)
+            .execute('DeleteLuaChonThucDon');
+
+        res.status(200).send({ message: 'Lựa chọn thực đơn đã được xóa thành công.' });
+    } catch (error) {
+        console.error('Lỗi khi xóa lựa chọn thực đơn:', error);
+        res.status(500).send({ message: 'Lỗi khi xóa lựa chọn thực đơn.', error: error.message });
+    }
+});
+
+// API để gọi thủ tục lưu trữ GetMonAnTrongDonHang
+app.get('/get-mon-an-trong-don-hang/:ID_don_hang', async (req, res) => {
+    const { ID_don_hang } = req.params;
+
+    try {
+        // Kết nối đến SQL Server
+        let pool = await sql.connect(config);
+
+        // Gọi thủ tục lưu trữ GetMonAnTrongDonHang
+        let result = await pool.request()
+            .input('ID_don_hang', sql.NVarChar(20), ID_don_hang)
+            .execute('GetMonAnTrongDonHang');
+
+        if (result.recordset.length > 0) {
+            res.status(200).send(result.recordset);
+        } else {
+            res.status(404).send({ message: 'Không tìm thấy món ăn trong đơn hàng.' });
+        }
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách món ăn trong đơn hàng:', error);
+        res.status(500).send({ message: 'Lỗi khi lấy danh sách món ăn trong đơn hàng.', error: error.message });
+    }
+});
+
+// API để gọi thủ tục lưu trữ GetNguyenLieuSapHetHang
+app.get('/get-nguyen-lieu-sap-het-hang', async (req, res) => {
+    try {
+        // Kết nối đến SQL Server
+        let pool = await sql.connect(config);
+
+        // Gọi thủ tục lưu trữ GetNguyenLieuSapHetHang
+        let result = await pool.request()
+            .execute('GetNguyenLieuSapHetHang');
+
+        if (result.recordset.length > 0) {
+            res.status(200).send(result.recordset);
+        } else {
+            res.status(404).send({ message: 'Không có nguyên liệu nào sắp hết hàng.' });
+        }
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách nguyên liệu sắp hết hàng:', error);
+        res.status(500).send({ message: 'Lỗi khi lấy danh sách nguyên liệu sắp hết hàng.', error: error.message });
+    }
+});
+
+// API để gọi thủ tục lưu trữ ThemDonHangMoi
+app.post('/them-don-hang-moi', async (req, res) => {
+    const { ID_khach_hang, ID_nhan_vien, Tinh_trang } = req.body;
+
+    try {
+        // Kết nối đến SQL Server
+        let pool = await sql.connect(config);
+
+        // Tạo biến để lưu giá trị output của ID_don_hang
+        const request = pool.request()
+            .input('ID_khach_hang', sql.Int, ID_khach_hang)
+            .input('ID_nhan_vien', sql.VarChar(20), ID_nhan_vien)
+            .input('Tinh_trang', sql.NVarChar(50), Tinh_trang)
+            .output('ID_don_hang', sql.VarChar(20));
+
+        await request.execute('ThemDonHangMoi');
+
+        // Lấy giá trị output của ID_don_hang
+        const newOrderID = request.parameters.ID_don_hang.value;
+
+        res.status(200).send({
+            message: 'Đơn hàng mới đã được tạo thành công.',
+            ID_don_hang: newOrderID
+        });
+    } catch (error) {
+        console.error('Lỗi khi tạo đơn hàng mới:', error);
+        res.status(500).send({ message: 'Lỗi khi tạo đơn hàng mới.', error: error.message });
+    }
+});
+
+// API để gọi thủ tục lưu trữ ThemLuaChonMonAn
+app.post('/them-lua-chon-mon-an', async (req, res) => {
+    const { ID_don_hang, ID_mon } = req.body;
+
+    try {
+        // Kiểm tra dữ liệu đầu vào
+        if (!ID_don_hang || !ID_mon) {
+            return res.status(400).send({ message: 'Thiếu dữ liệu: ID_don_hang hoặc ID_mon.' });
+        }
+
+        // Kết nối đến SQL Server
+        let pool = await sql.connect(config);
+
+        // Gọi thủ tục lưu trữ ThemLuaChonMonAn
+        await pool.request()
+            .input('ID_don_hang', sql.VarChar(20), ID_don_hang)
+            .input('ID_mon', sql.NVarChar(10), ID_mon)
+            .execute('ThemLuaChonMonAn');
+
+        res.status(200).send({ message: 'Món ăn đã được thêm vào đơn hàng và tổng tiền đã được cập nhật.' });
+    } catch (error) {
+        console.error('Lỗi khi thêm món ăn vào đơn hàng:', error);
+        res.status(500).send({ message: 'Lỗi khi thêm món ăn vào đơn hàng.', error: error.message });
+    }
+});
 
 
 app.listen(8000, () => {
