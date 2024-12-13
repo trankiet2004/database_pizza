@@ -30,6 +30,94 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <script>
+        $(document).ready(function(){
+            $("#search-menu-button").click(function() {
+                searchStaff();
+            });
+
+            $("#search-menu-input").on("keyup", function(event) {
+                if(event.key === "Enter") {
+                    searchStaff();
+                }
+            });
+
+            function searchStaff() {
+                let query = $("#search-menu-input").val().toLowerCase();
+                console.log("Query:", query);
+
+                let tab1, tab2, tab3;
+                tab1 = tab2 = tab3 = false;
+
+                $('#tab-1 #list-menu-tab-1').each(function() {
+                    let menuName = $(this).find("#ten-lua-chon").text().toLowerCase();
+
+                    if(menuName.includes(query)) {
+                        tab1 = true;
+                    }
+                });
+
+                $('#tab-2 #list-menu-tab-2').each(function() {
+                    let menuName = $(this).find("#ten-lua-chon").text().toLowerCase();
+
+                    if(menuName.includes(query)) {
+                        tab2 = true;
+                    }
+                });
+
+                $('#tab-3 #list-menu-tab-3').each(function() {
+                    let menuName = $(this).find("#ten-lua-chon").text().toLowerCase();
+
+                    if(menuName.includes(query)) {
+                        tab3 = true;
+                    }
+                });
+
+                $('.tab-pane').removeClass('active'); 
+
+                if(tab1) {
+                    $('#tab-1').addClass('active');
+                    $('#tab-1 #list-menu-tab-1').each(function() {
+                        let menuName = $(this).find("#ten-lua-chon").text().toLowerCase();
+
+                        if(menuName.includes(query)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+
+                if(tab2) {
+                    $('#tab-2').addClass('active');
+                    $('#tab-2 #list-menu-tab-2').each(function() {
+                        let menuName = $(this).find("#ten-lua-chon").text().toLowerCase();
+
+                        if(menuName.includes(query)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+                
+                if(tab3) {
+                    $('#tab-3').addClass('active');
+                    $('#tab-3 #list-menu-tab-3').each(function() {
+                        let menuName = $(this).find("#ten-lua-chon").text().toLowerCase();
+
+                        if(menuName.includes(query)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });            
+                }
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -103,17 +191,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
-                                <div class="ps-3">
-                                    <img src="../img/fry.png" alt="">
-                                    <p style="font-size: 20px; font-weight: 600; line-height: 19.5px; color: black; margin-top: 10px;">
-                                        SIDEDISH
-                                    </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-2">
                                 <div class="ps-3">
                                     <img src="../img/Drink.png" alt="">
                                     <p style="font-size: 20px; font-weight: 600; line-height: 19.5px; color: black; margin-top: 10px;">
@@ -123,7 +201,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-4">
+                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
                                 <div class="ps-3">
                                     <img src="../img/Combo.png" alt="">
                                     <p style="font-size: 20px; font-weight: 600; line-height: 19.5px; color: black; margin-top: 10px;">
@@ -136,8 +214,8 @@
                     
                     <div style="display: flex; flex-wrap: wrap; justify-content: center;">
                         <div class="input-group mb-3" style="width: 40%;" align="center">
-                            <input type="text" style="border: 1px solid black; border-radius: 10px;" class="form-control" placeholder="NHẬP TÊN MÓN HOẶC MÃ MÓN" aria-label="NHẬP TÊN MÓN HOẶC MÃ MÓN" aria-describedby="basic-addon2">
-                            <button type="button" style="color: white; background: #DC802A; border: 1px solid black; border-radius: 10px; width: 176px; height: 38px; margin-left: 12px;" class="btn">
+                            <input id="search-menu-input" type="text" style="border: 1px solid black; border-radius: 10px;" class="form-control" placeholder="NHẬP TÊN MÓN" aria-label="NHẬP TÊN MÓN HOẶC MÃ MÓN" aria-describedby="basic-addon2">
+                            <button id="search-menu-button" type="button" style="color: white; background: #DC802A; border: 1px solid black; border-radius: 10px; width: 176px; height: 38px; margin-left: 12px;" class="btn">
                                 TÌM KIẾM
                             </button>
                         </div>
@@ -146,7 +224,7 @@
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane fade show active">
                             <div class="container overflow-auto" style="height: 548px; border: 1px solid black; border-radius: 20px;">
-                                <div id="list-menu" class="row" style="width: 100%;">
+                                <div id="list-menu-tab-1" class="row" style="width: 100%;">
                                     <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
                                         <div class="row" style="padding: 10px;">
                                             <div class="col col-3" style="background-color: transparent;">
@@ -559,7 +637,7 @@
                         </div>
                         <div id="tab-2" class="tab-pane fade show p-0">
                             <div class="container" style="height: auto; border: 1px solid black; border-radius: 20px;">
-                                <div id="list-menu" class="row" style="width: 100%;">
+                                <div id="list-menu-tab-2" class="row" style="width: 100%;">
                                     <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
                                         <div class="row" style="padding: 10px;">
                                             <div class="col col-3" style="background-color: transparent;">
@@ -972,420 +1050,7 @@
                         </div>
                         <div id="tab-3" class="tab-pane fade show p-0">
                             <div class="container" style="height: auto; border: 1px solid black; border-radius: 20px;">
-                                <div id="list-menu" class="row" style="width: 100%;">
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px">
-                                        <div class="row" style="padding: 10px;">
-                                            <div class="col col-3" style="background-color: transparent;">
-                                                <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
-                                            </div>
-    
-                                            <div class="col col-9" style="background-color: transparent;">
-                                                <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; justify-content: space-between;">
-                                                    <nobr style="font-weight: 600; color: black;">
-                                                        Pizza Hải Sản - (Cỡ Vừa)
-                                                    </nobr>
-    
-                                                    <nobr style="color: #06B92A; font-weight: 800;">
-                                                        150.000 VND
-                                                    </nobr>
-                                                </p>
-    
-                                                <hr style="size: 2px; color: black;">
-                                                <div class="row">
-                                                    <div class="col col-8">
-                                                        <ul style="color: black;" align="left">
-                                                            <li>Dứa</li>
-                                                            <li>Tôm sú và mực</li>
-                                                            <li>Ớt chuông xanh và đỏ</li>
-                                                        </ul>
-                                                    </div>
-    
-                                                    <div class="col col-4" style="background-color: transparent; padding: 5px;">
-                                                        <div class="row">
-                                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">+</p>
-                                                            </div>
-                                                            
-                                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                                <p style="font-weight: 900; font-size: 20px;">-</p>
-                                                            </div>
-                                                        </div>
-    
-                                                        <div class="row" style="margin-top: 5px;">
-                                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
-                                                                <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                                    Còn Hàng
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="tab-4" class="tab-pane fade show p-0">
-                            <div class="container" style="height: auto; border: 1px solid black; border-radius: 20px;">
-                                <div id="list-menu" class="row" style="width: 100%;">
+                                <div id="list-menu-tab-3" class="row" style="width: 100%;">
                                     <div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
                                         <div class="row" style="padding: 10px;">
                                             <div class="col col-3" style="background-color: transparent;">
@@ -2104,6 +1769,7 @@
 
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
+    <script src="js/menu.js"></script>
 </body>
 
 </html>

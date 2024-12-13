@@ -297,124 +297,29 @@ app.put('/update-nguyen-lieu/:ID_nguyen_lieu', async (req, res) => {
     }
 });
 
-//////////////////////////////////////////////////////////////
-
-
-
-
-app.get('/view-lua-chon-thuc-don', async (req, res) => {
-    const { Loai } = req.query;
+app.delete('/pizza/:id_mon', async (req, res) => {
+    const idMon = req.params.id_mon;
 
     try {
         let pool = await sql.connect(config);
+
         let result = await pool.request()
-            .input('Loai', sql.NVarChar(50), Loai)
-            .execute('ViewLuaChonThucDon');
+            .input('ID_Mon', sql.NVarChar(10), idMon)
+            .execute('DeleteLuaChonThucDon');
 
-        res.status(200).send(result.recordset);
-    } catch (error) {
-        console.error('Lỗi khi hiển thị lựa chọn thực đơn:', error);
-        res.status(500).send({ message: 'Lỗi khi hiển thị lựa chọn thực đơn.', error: error.message });
+        res.status(200).send({
+            message: `Đã thực hiện xóa lựa chọn thực đơn với ID: ${idMon}`,
+            details: result
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: 'Lỗi khi xóa lựa chọn thực đơn.',
+            error: err.message
+        });
     }
 });
 
-app.get('/get-mon-an-by-size', async (req, res) => {
-    const { KichCo } = req.query;
-
-    try {
-        let pool = await sql.connect(config);
-        let result;
-        if (!KichCo || KichCo.trim() === '') {
-            result = await pool.request().query('SELECT * FROM MonAnDon');
-        } else {
-            result = await pool.request()
-                .input('KichCo', sql.NVarChar(50), KichCo)
-                .execute('GetMonAnBySize');
-        }
-
-        res.status(200).send(result.recordset);
-    } catch (error) {
-        console.error('Lỗi khi lấy danh sách món ăn theo kích thước:', error);
-        res.status(500).send({ message: 'Lỗi khi lấy danh sách món ăn theo kích thước.', error: error.message });
-    }
-});
-
-app.get('/get-dish-details-in-combo/:ID_Combo', async (req, res) => {
-    const { ID_Combo } = req.params;
-
-    try {
-        let pool = await sql.connect(config);
-        let result = await pool.request()
-            .input('ID_Combo', sql.NVarChar(10), ID_Combo)
-            .execute('GetDishDetailsInCombo');
-
-        if (result.recordset.length > 0) {
-            res.status(200).send(result.recordset);
-        } else {
-            res.status(404).send({ message: 'Không tìm thấy món ăn trong combo này.' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi lấy thông tin món ăn trong combo:', error);
-        res.status(500).send({ message: 'Lỗi khi lấy thông tin món ăn trong combo.', error: error.message });
-    }
-});
-
-app.get('/show-nguyen-lieu', async (req, res) => {
-    const { FilterColumn, FilterValue } = req.query;
-
-    try {
-        let pool = await sql.connect(config);
-
-        let result;
-        if (!FilterColumn || !FilterValue) {
-            // Lấy tất cả nguyên liệu nếu không có bộ lọc
-            result = await pool.request().query('SELECT * FROM NguyenLieu');
-        } else {
-            result = await pool.request()
-                .input('FilterColumn', sql.NVarChar(50), FilterColumn)
-                .input('FilterValue', sql.NVarChar(255), FilterValue)
-                .execute('ShowNguyenLieu');
-        }
-
-        res.status(200).send(result.recordset);
-    } catch (error) {
-        console.error('Lỗi khi hiển thị nguyên liệu:', error);
-        res.status(500).send({ message: 'Lỗi khi hiển thị nguyên liệu.', error: error.message });
-    }
-});
-app.put('/update-nguyen-lieu/:ID_nguyen_lieu', async (req, res) => {
-    const { ID_nguyen_lieu } = req.params;
-    const {
-        Ten_nguyen_lieu,
-        Gia_mua,
-        Nguon_mua,
-        Han_su_dung,
-        So_luong_ton_kho,
-        So_luong_ban_dau,
-        Ton_kho_toi_thieu,
-        Ngay_mua
-    } = req.body;
-
-    try {
-        let pool = await sql.connect(config);
-        await pool.request()
-            .input('ID_nguyen_lieu', sql.NVarChar(10), ID_nguyen_lieu)
-            .input('Ten_nguyen_lieu', sql.NVarChar(255), Ten_nguyen_lieu)
-            .input('Gia_mua', sql.Decimal(10, 2), Gia_mua)
-            .input('Nguon_mua', sql.NVarChar(255), Nguon_mua)
-            .input('Han_su_dung', sql.Date, Han_su_dung)
-            .input('So_luong_ton_kho', sql.Int, So_luong_ton_kho)
-            .input('So_luong_ban_dau', sql.Int, So_luong_ban_dau)
-            .input('Ton_kho_toi_thieu', sql.Int, Ton_kho_toi_thieu)
-            .input('Ngay_mua', sql.Date, Ngay_mua)
-            .execute('UpdateNguyenLieu');
-
-        res.status(200).send({ message: 'Cập nhật nguyên liệu thành công.' });
-    } catch (error) {
-        console.error('Lỗi khi cập nhật nguyên liệu:', error);
-        res.status(500).send({ message: 'Lỗi khi cập nhật nguyên liệu.', error: error.message });
-    }
-});
 
 app.listen(8000, () => {
     console.log("The Server for pizza store is running in http://localhost:8000")
