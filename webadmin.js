@@ -18,6 +18,7 @@ const shiftRoutes = require('./routes/shift');
 
 app.use('/', authRoutes);
 app.use('/shift', shiftRoutes); // shift
+
 app.get('/pizza', async (req, res) => {
     try {
         //const Kich_co = ''
@@ -47,7 +48,7 @@ app.get('/pizza/:id', async (req, res) => {
       console.error('L��i:', err.message);
       res.status(500).send('Đã xảy ra l��i');
     }
-})
+});
 
 app.post('/pizza', async(req, res) => {
     try {
@@ -68,7 +69,7 @@ app.post('/pizza', async(req, res) => {
       console.error('Lỗi:', err.message);
       res.status(500).send('Đã xảy ra lỗi');
     }
-})
+});
 
 app.post('/add-mon-an-to-combo', async (req, res) => {
     const { ID_Combo, ID_MonAn, SoLuong } = req.body;
@@ -319,6 +320,7 @@ app.delete('/pizza/:id_mon', async (req, res) => {
         });
     }
 });
+
 // API để gọi thủ tục lưu trữ DeleteNguyenLieu
 app.delete('/delete-nguyen-lieu/:ID_NguyenLieu', async (req, res) => {
     const { ID_NguyenLieu } = req.params;
@@ -452,6 +454,43 @@ app.post('/them-lua-chon-mon-an', async (req, res) => {
     } catch (error) {
         console.error('Lỗi khi thêm món ăn vào đơn hàng:', error);
         res.status(500).send({ message: 'Lỗi khi thêm món ăn vào đơn hàng.', error: error.message });
+    }
+});
+
+app.post('/tao-don-hang/:ID_nhan_vien', async (req, res) => {
+    const { items, ID_khach_hang, ID_nguoi_giao_hang, Tinh_trang } = req.body;
+    const { ID_nhan_vien } = req.params   // Kiểm tra dữ liệu đầu và
+    console.log(ID_nhan_vien)
+    if (!items || items.length === 0) {
+        return res.status(400).json({ message: 'Danh sách món ăn không được để trống.' });
+    }
+    
+    try {
+        const pool = await sql.connect(config);
+
+        // Chuyển danh sách món ăn sang JSON
+        const jsonItems = JSON.stringify(items);
+
+        // Gọi thủ tục SQL để tạo đơn hàng và lưu món ăn
+        const result = await pool.request()
+            .input('ID_khach_hang', sql.Int, ID_khach_hang)
+            .input('ID_nhan_vien', sql.NVarChar(20), ID_nhan_vien)
+            .input('ID_nguoi_giao_hang', sql.Int, ID_nguoi_giao_hang)
+            .input('Ngay_dat_hang', sql.Date, new Date()) // Lấy ngày hiện tại
+            .input('Tinh_trang', sql.NVarChar(50), Tinh_trang)
+            .input('DanhSachMonAn', sql.NVarChar(sql.MAX), jsonItems) // Truyền danh sách món ăn
+            .execute('TaoDonHangVaLuuMonAn');
+
+        // Lấy ID đơn hàng trả về
+        const ID_don_hang = result.recordset[0].ID_don_hang;
+
+        res.status(200).json({
+            message: 'Đơn hàng đã được tạo thành công!',
+            ID_don_hang,
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Có lỗi xảy ra khi tạo đơn hàng.', error: err.message });
     }
 });
 

@@ -10,6 +10,7 @@ const config = {
     encrypt: false,                // Đặt false nếu không dùng SSL
     trustServerCertificate: true,  // Bypass SSL nếu không dùng chứng chỉ
   },
+  requestTimeout: 50000 // 5 phút (tính bằng ms)
 };
 
 module.exports = {sql,config}
