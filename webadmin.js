@@ -356,6 +356,18 @@ app.delete('/delete-lua-chon-thuc-don/:ID_Mon', async (req, res) => {
     }
 });
 
+app.get('/get-don-hang', async (req, res) => {
+    try {
+        let pool = await sql.connect(config);
+
+        let result = await pool.request().query('SELECT * FROM DonHang');
+        res.status(200).send(result.recordset);
+    } catch (error) {
+        console.error('Lỗi khi hiển thị nguyên liệu:', error);
+        res.status(500).send({ message: 'Lỗi khi hiển thị nguyên liệu.', error: error.message });
+    }
+});
+
 // API để gọi thủ tục lưu trữ GetMonAnTrongDonHang
 app.get('/get-mon-an-trong-don-hang/:ID_don_hang', async (req, res) => {
     const { ID_don_hang } = req.params;
