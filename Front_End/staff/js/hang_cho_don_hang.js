@@ -37,6 +37,8 @@ getEmployeeMapping().then(mapping => {
             }
 
             response.json().then(res => {
+                res.sort((a, b) => new Date(b.Ngay_dat) - new Date(a.Ngay_dat));
+
                 let divLichSuDonHang = ``;
 
                 for(let i = 0; i < res.length; i ++) {
