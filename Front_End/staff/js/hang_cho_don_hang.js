@@ -80,13 +80,45 @@ getEmployeeMapping().then(mapping => {
 
                 document.getElementById("list-hang-cho-don-hang").innerHTML = divLichSuDonHang;
 
-                fetch(
-                    `http://localhost:8000/get-don-hang`, {
-                        method: "GET"
-                    }
-                ).then(response => {
-                    response.json().then(res2 => {
-                        
+                const rows = document.querySelectorAll("#list-hang-cho-don-hang .row");
+                rows.forEach(row => {
+                    row.addEventListener("click", () => {                        
+                        const maDonHang = row.querySelector("#ma-don-hang").innerText;                        
+                        // alert(`Mã Đơn Hàng: ${maDonHang}`);
+                        fetch(
+                            `http://localhost:8000/get-mon-an-trong-don-hang/${maDonHang}`, {
+                                method: "GET"
+                            }
+                        ).then(response => {
+                            response.json().then(res2 => {
+                                let divChiTietDonHang = ``;
+                                for(let j = 0; j < res2.length; j ++) {
+                                    divChiTietDonHang += 
+                                    `<div class="row" style="width: 100%; height: auto; border: 1px solid black; border-radius: 10px; padding-top: 5px; padding-bottom: 5px; margin-bottom: 10px;">
+                                        <div class="col col-3">
+                                            <img style="width: 111px; height: 85px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
+                                        </div>
+                                        <div class="col col-1"></div>
+                                        <div class="col col-8">
+                                            <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap;">
+                                                <nobr style="font-weight: 600; color: black;" id="name-pizza">
+                                                    ${res2[j].TenMon}
+                                                </nobr>
+                                            </p>
+        
+                                            <hr style="size: 2px; color: black;">
+        
+                                            <p style="font-size: 16px; line-height: 18.75px; display: flex; flex-wrap: wrap; font-weight: 600; color: black;">
+                                                Số Lượng: 
+                                                <nobr id="so-luong">${res2[j].SoLuong}</nobr>
+                                            </p>
+                                        </div>
+                                    </div>`;
+                                }
+        
+                                document.getElementById("chi-tiet-don-hang-x").innerHTML = divChiTietDonHang;
+                            });
+                        });
                     });
                 });
             });

@@ -85,13 +85,9 @@ try {
 
                                     <div class="col col-4" style="background-color: transparent; padding: 5px;">
                                         <div class="row">
-                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                <p type="button" style="font-weight: 900; font-size: 20px;">+</p>
-                                            </div>
-                                            
-                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                <p type="button" style="font-weight: 900; font-size: 20px;">-</p>
-                                            </div>
+                                            <div class="col col-3 btn-increase" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; text-align: center; cursor: pointer;">+</div>
+                                            <div class="col col-3 quantity-display" style="text-align: center; line-height: 32px;">0</div>
+                                            <div class="col col-3 btn-decrease" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; text-align: center; cursor: pointer;">-</div>
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
@@ -143,9 +139,9 @@ try {
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
-                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
+                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: auto;">
                                                 <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                    Còn Hàng
+                                                    Mã Món Ăn ${res[i].IDLuaChon}
                                                 </p>
                                             </div>
                                         </div>
