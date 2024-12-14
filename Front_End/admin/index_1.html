@@ -288,61 +288,6 @@
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
     <script src="js/index.js"></script>
-    <script>
-        // Tìm nút "Thêm Ca Trực"
-const themCaTrucButton = document.getElementById("them-ca-truc-button");
-
-// Thêm sự kiện click cho nút
-themCaTrucButton.addEventListener("click", async () => {
-    // Lấy thông tin từ các input
-    const starttime = document.getElementById("gio-bat-dau").value.trim();
-    const endtime = document.getElementById("gio-ket-thuc").value.trim();
-    const shiftdate = document.getElementById("ngay-thuc-hien").value.trim();
-    const maxparticipants = document.getElementById("so-nguoi-thuc-hien-max").value.trim();
-    
-    // Kiểm tra dữ liệu hập (validation)
-    if (!starttime || !endtime || !shiftdate || !maxparticipants) {
-        alert("Vui lòng điền đầy đủ thông tin!");
-        return;
-    }
-
-    // Tạo đối tượng dữ liệu gửi đi
-    const data = {
-        starttime,
-        endtime,
-        shiftdate,
-        maxparticipants: parseInt(maxparticipants, 10) // Chuyển thành số nguyên
-    };
-    // alert(data)
-    try {
-        // Gửi dữ liệu tới server bằng fetch
-        const response = await fetch("http://localhost:8000/shift/createShift", {
-            method: "POST", // Phương thức HTTP POST
-            headers: {
-                "Content-Type": "application/json", // Dữ liệu gửi đi là JSON
-            },
-            body: JSON.stringify(data), // Chuyển dữ liệu thành chuỗi JSON
-        });
-
-        // Kiểm tra phản hồi từ server
-        if (response.ok) {
-            alert("Thêm ca trực thành công!");
-            // Optionally: Xóa các ô input sau khi thêm
-            document.getElementById("gio-bat-dau").value = "";
-            document.getElementById("gio-ket-thuc").value = "";
-            document.getElementById("ngay-thuc-hien").value = "";
-            document.getElementById("so-nguoi-thuc-hien-max").value = "";
-        } else {
-            const error = await response.json();
-            alert("Lỗi khi thêm ca trực: " + error.message);
-        }
-    } catch (error) {
-        console.error("Lỗi kết nối đến server:", error);
-        alert("Không thể kết nối đến server. Vui lòng thử lại sau.");
-    }
-});
-
-    </script>
 </body>
 
 </html>
