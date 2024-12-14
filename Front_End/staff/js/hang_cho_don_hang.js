@@ -79,6 +79,7 @@ getEmployeeMapping().then(mapping => {
                 }
 
                 document.getElementById("list-hang-cho-don-hang").innerHTML = divLichSuDonHang;
+                document.getElementById("so-don-hang-chua-hoan-thanh").innerHTML = res.length;
 
                 const rows = document.querySelectorAll("#list-hang-cho-don-hang .row");
                 rows.forEach(row => {
@@ -116,7 +117,7 @@ getEmployeeMapping().then(mapping => {
                                     </div>`;
                                 }
         
-                                document.getElementById("chi-tiet-don-hang-x").innerHTML = divChiTietDonHang;
+                                document.getElementById("chi-tiet-don-hang-x").innerHTML = divChiTietDonHang;                                
                             });
                         });
                     });

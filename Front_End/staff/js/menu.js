@@ -47,9 +47,9 @@ try {
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
-                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: auto;">
+                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
                                                 <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                    Mã Món Ăn ${res[i].IDLuaChon}
+                                                    Còn Hàng ${res[i].IDLuaChon}
                                                 </p>
                                             </div>
                                         </div>
@@ -87,9 +87,9 @@ try {
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
-                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: auto;">
+                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
                                                 <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                    Mã Món Ăn ${res[i].IDLuaChon}
+                                                    Còn Hàng ${res[i].IDLuaChon}
                                                 </p>
                                             </div>
                                         </div>
@@ -131,9 +131,9 @@ try {
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
-                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: auto;">
+                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
                                                 <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                    Mã Món Ăn ${res[i].IDLuaChon}
+                                                    Còn Hàng ${res[i].IDLuaChon}
                                                 </p>
                                             </div>
                                         </div>
