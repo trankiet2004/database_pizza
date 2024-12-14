@@ -1475,7 +1475,7 @@
                         <nobr id="tong-tien">600.000 VND</nobr>
                     </button>
 
-                    <button data-bs-toggle="modal" data-bs-target="#confirm" type="button" class="btn" style="background-color: #DC802A; color: white; font-size: 20px; font-weight: 700; line-height: 26px; width: 472px; height: 87px; border-radius: 10px;">
+                    <button id="confirm-button" data-bs-toggle="modal" data-bs-target="#confirm" type="button" class="btn" style="background-color: #DC802A; color: white; font-size: 20px; font-weight: 700; line-height: 26px; width: 472px; height: 87px; border-radius: 10px;">
                         XÁC NHẬN
                     </button>
 
@@ -1484,7 +1484,7 @@
                             <div class="modal-content" style="background-color: white; width: 1062px; position: absolute; left: -50%; height: auto; border-radius: 15px;">
                                 <div class="modal-body">
                                     <div class="row" style="height: auto; margin: 29px;">
-                                        <div id="don-hang" class="col col-8" style="border: 1px solid black; border-radius: 10px;">
+                                        <div id="don-hang-list-moi" class="col col-8" style="border: 1px solid black; border-radius: 10px;">
                                             <div style="margin: 10px; border: 1px solid black; border-radius: 10px; height: auto;">
                                                 <div class="row" style="padding: 10px 10px;">
                                                     <div class="col col-3" style="background-color: transparent;">
@@ -1663,15 +1663,15 @@
                                                 TỔNG TIỀN: 
                                             </p>
 
-                                            <p id="tong-tien" style="color: #49F057; font-size: 40px; font-weight: 700; line-height: 52px; margin-left: 20px;">
+                                            <p id="tong-tien-xac-nhan" style="color: #49F057; font-size: 40px; font-weight: 700; line-height: 52px; margin-left: 20px;">
                                                 600.000 VND
                                             </p>
 
-                                            <p id="tong-tien" style="font-size: 24px; font-weight: 700; line-height: 31.2px; margin-left: 20px;">
+                                            <p id="xac-nhan-don-hang-nay" style="font-size: 24px; font-weight: 700; line-height: 31.2px; margin-left: 20px;">
                                                 Xác Nhận Đơn Hàng Này?
                                             </p>
 
-                                            <button type="button" class="btn text-white" style="background-color: #49F057; width: 215px; height: 43px; font-size: 20px; font-weight: 700; line-height: 26px; margin-left: 20px;">
+                                            <button id="confirm-lan-cuoi" type="button" class="btn text-white" style="background-color: #49F057; width: 215px; height: 43px; font-size: 20px; font-weight: 700; line-height: 26px; margin-left: 20px;">
                                                 XÁC NHẬN
                                             </button>
 
@@ -1770,6 +1770,8 @@
     <!-- Template Javascript -->
     <script src="../js/main.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/them_don.js"></script>
+    <script src="js/post_don_hang.js"></script>
 </body>
 
 </html>

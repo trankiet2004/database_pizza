@@ -20,7 +20,7 @@ try {
             for(let i = 0; i < res.length; i ++) {
                 if(res[i].LoaiLuaChon === "Combo") {
                     tab3containerTemp += 
-                    `<div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
+                    `<div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;" data-id="${res[i].IDLuaChon}">
                         <div class="row" style="padding: 10px;">
                             <div class="col col-3" style="background-color: transparent;">
                                 <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://img.freepik.com/free-photo/top-view-two-italian-pizzas-served-wooden-background-flour-sprinkles_141793-507.jpg" alt="">
@@ -41,19 +41,15 @@ try {
 
                                     <div class="col col-4" style="background-color: transparent; padding: 5px;">
                                         <div class="row">
-                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                <p type="button" style="font-weight: 900; font-size: 20px;">+</p>
-                                            </div>
-                                            
-                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                <p type="button" style="font-weight: 900; font-size: 20px;">-</p>
-                                            </div>
+                                            <div class="col col-3 btn-increase" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; text-align: center; cursor: pointer;">+</div>
+                                            <div class="col col-3 quantity-display" style="text-align: center; line-height: 32px;">0</div>
+                                            <div class="col col-3 btn-decrease" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; text-align: center; cursor: pointer;">-</div>
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
-                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
+                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: auto;">
                                                 <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                    Còn Hàng
+                                                    Mã Món Ăn ${res[i].IDLuaChon}
                                                 </p>
                                             </div>
                                         </div>
@@ -64,7 +60,7 @@ try {
                     </div>`;
                 } else if(res[i].KichCo === null) {
                     tab2containerTemp += 
-                    `<div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
+                    `<div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;" data-id="${res[i].IDLuaChon}">
                         <div class="row" style="padding: 10px;">
                             <div class="col col-3" style="background-color: transparent;">
                                 <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://c4.wallpaperflare.com/wallpaper/615/214/535/red-logo-logo-coca-cola-wallpaper-preview.jpg" alt="">
@@ -91,9 +87,9 @@ try {
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
-                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: 26px;">
+                                            <div class="col col-11" style="background: #49F057; border-radius: 10px; height: auto;">
                                                 <p style="font-weight: 600; font-size: 15px; color: white;">
-                                                    Còn Hàng
+                                                    Mã Món Ăn ${res[i].IDLuaChon}
                                                 </p>
                                             </div>
                                         </div>
@@ -104,7 +100,7 @@ try {
                     </div>`;
                 } else {
                     tab1containerTemp += 
-                    `<div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;">
+                    `<div class="col col-6" style="height: auto; width: 48.2%; border-radius: 10px; border: 1px solid black; margin: 10px;"data-id="${res[i].IDLuaChon}">
                         <div class="row" style="padding: 10px;">
                             <div class="col col-3" style="background-color: transparent;">
                                 <img style="width: 127px; height: 123px; border-radius: 10px;" src="https://s3-alpha-sig.figma.com/img/1563/be4b/0ecd51c107707964cb0b4c400bac2b06?Expires=1734307200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=c-Y3lEvSFRVrzelppLoscL4cQBt-6r90UDU8yNX7S1LDPdmGLW-FJ97rqZET0T6Vs2W70hvtBUTs0d3RXLCf-Sf6zrMFcCgo9MUFJS~TDWO6~zyvpU58-feGLgAeMK-RdY-TetoVdEOSkcMJDhtwzaZGtrxkq3WIDGp7PS7lz6GUktsOimm4UDKC2p0fBkNnENXjSHAGKIpPy8EODu6H3SLDy9g84ZufXwKwy~qufNHob477RhOpaWEvMol4Ng4AfOCorRxdzxaU~UEoQVyX3yfOcDI2l4QTau~8azOh8QfU6Tatz~t8huAGoUOk~5xYHwxk~uAbiUnWiRkezzcJ5Q__" alt="">
@@ -129,13 +125,9 @@ try {
 
                                     <div class="col col-4" style="background-color: transparent; padding: 5px;">
                                         <div class="row">
-                                            <div class="col col-5" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; margin-right: 5px;">
-                                                <p type="button" style="font-weight: 900; font-size: 20px;">+</p>
-                                            </div>
-                                            
-                                            <div class="col col-5" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; margin-left: 5px;">
-                                                <p type="button" style="font-weight: 900; font-size: 20px;">-</p>
-                                            </div>
+                                            <div class="col col-3 btn-increase" style="background-color: #49F057; height: 32px; color: white; border-radius: 10px; text-align: center; cursor: pointer;">+</div>
+                                            <div class="col col-3 quantity-display" style="text-align: center; line-height: 32px;">0</div>
+                                            <div class="col col-3 btn-decrease" style="background-color: #F48787; height: 32px; color: white; border-radius: 10px; text-align: center; cursor: pointer;">-</div>
                                         </div>
 
                                         <div class="row" style="margin-top: 5px;">
