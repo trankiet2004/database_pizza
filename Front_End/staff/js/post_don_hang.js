@@ -48,7 +48,7 @@ document.getElementById("confirm-lan-cuoi").addEventListener("click", e => {
                 throw new Error(`Response status: ${response.status}`);
             }
     
-            alert("Thêm Đơn Hàng Thành Công");
+            alert(`Thêm Đơn Hàng Thành Công!`);
             location.replace("http://localhost:8000/staff/order_queue_staff.html");
         });
     } catch (error) {

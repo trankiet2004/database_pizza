@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
 exports.listEmployee = async (req, res) => {
     try {
         const listemployees = await employee.getAllEmployees();
-        console.log(listemployees)
+        // console.log(listemployees)
         res.status(200).json(listemployees);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -52,7 +52,7 @@ exports.listEmployee = async (req, res) => {
 exports.searchEmployee = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id);
+        // console.log(id);
         const findemployee = await employee.getemployeebyid(id);
         res.status(200).json(findemployee);
     } catch (error) {

@@ -472,7 +472,7 @@ app.post('/them-lua-chon-mon-an', async (req, res) => {
 app.post('/tao-don-hang/:ID_nhan_vien', async (req, res) => {
     const { items, ID_khach_hang, ID_nguoi_giao_hang, Tinh_trang } = req.body;
     const { ID_nhan_vien } = req.params   // Kiểm tra dữ liệu đầu và
-    console.log(ID_nhan_vien)
+    // console.log(ID_nhan_vien)
     if (!items || items.length === 0) {
         return res.status(400).json({ message: 'Danh sách món ăn không được để trống.' });
     }
@@ -495,6 +495,8 @@ app.post('/tao-don-hang/:ID_nhan_vien', async (req, res) => {
 
         // Lấy ID đơn hàng trả về
         const ID_don_hang = result.recordset[0].ID_don_hang;
+
+        console.log(`Mã Đơn Hàng Mới Là: ${ID_don_hang}`);
 
         res.status(200).json({
             message: 'Đơn hàng đã được tạo thành công!',
